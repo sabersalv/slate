@@ -1,14 +1,17 @@
 ---
 title: Flood v1.0
 language_tabs:
+  - shell: Shell
+  - http: HTTP
+  - javascript: JavaScript
   - ruby: Ruby
   - python: Python
-language_clients:
-  - ruby: ""
-  - python: ""
+  - php: PHP
+  - java: Java
+  - go: Go
 toc_footers: []
 includes: []
-search: false
+search: true
 highlight_theme: darkula
 headingLevel: 2
 
@@ -26,11 +29,51 @@ Base URLs:
 
 <h1 id="flood-default">Default</h1>
 
-## Authenticates a user
+## auth.authenticate
 
 <a id="opIdauth.authenticate"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X POST http://localhost:3000/auth/authenticate \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json'
+
+```
+
+```http
+POST http://localhost:3000/auth/authenticate HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+Accept: application/json
+
+```
+
+```javascript
+const inputBody = '{
+  "username": "string",
+  "password": "string"
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/auth/authenticate',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -62,7 +105,84 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','http://localhost:3000/auth/authenticate', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/auth/authenticate");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "http://localhost:3000/auth/authenticate", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `POST /auth/authenticate`
+
+*Authenticates a user*
 
 > Body parameter
 
@@ -73,7 +193,7 @@ print(r.json())
 }
 ```
 
-<h3 id="authenticates-a-user-parameters">Parameters</h3>
+<h3 id="auth.authenticate-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -90,7 +210,7 @@ print(r.json())
 }
 ```
 
-<h3 id="authenticates-a-user-responses">Responses</h3>
+<h3 id="auth.authenticate-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -102,11 +222,45 @@ print(r.json())
 This operation does not require authentication
 </aside>
 
-## Tests connection to the torrent client
+## client.connectionTest
 
 <a id="opIdclient.connectionTest"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/client/connection-test \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET http://localhost:3000/client/connection-test HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/client/connection-test',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -136,7 +290,82 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','http://localhost:3000/client/connection-test', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/client/connection-test");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/client/connection-test", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /client/connection-test`
+
+*Tests connection to the torrent client*
 
 > Example responses
 
@@ -148,14 +377,14 @@ print(r.json())
 }
 ```
 
-<h3 id="tests-connection-to-the-torrent-client-responses">Responses</h3>
+<h3 id="client.connectiontest-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|Inline|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|Inline|
 
-<h3 id="tests-connection-to-the-torrent-client-responseschema">Response Schema</h3>
+<h3 id="client.connectiontest-responseschema">Response Schema</h3>
 
 Status Code **200**
 
@@ -173,11 +402,45 @@ Status Code **500**
 This operation does not require authentication
 </aside>
 
-## Gets settings of torrent client managed by Flood.
+## client.settings
 
 <a id="opIdclient.settings"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/client/settings \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET http://localhost:3000/client/settings HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/client/settings',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -207,7 +470,82 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','http://localhost:3000/client/settings', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/client/settings");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/client/settings", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /client/settings`
+
+*Gets settings of torrent client managed by Flood.*
 
 > Example responses
 
@@ -243,7 +581,7 @@ print(r.json())
 }
 ```
 
-<h3 id="gets-settings-of-torrent-client-managed-by-flood.-responses">Responses</h3>
+<h3 id="client.settings-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -259,6 +597,69 @@ This operation does not require authentication
 <a id="opIdclient.updateSettings"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X PATCH http://localhost:3000/client/settings \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json'
+
+```
+
+```http
+PATCH http://localhost:3000/client/settings HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+Accept: application/json
+
+```
+
+```javascript
+const inputBody = '{
+  "dht": true,
+  "dhtPort": 0,
+  "directoryDefault": "string",
+  "networkHttpMaxOpen": 0,
+  "networkLocalAddress": [
+    "string"
+  ],
+  "networkMaxOpenFiles": 0,
+  "networkPortOpen": true,
+  "networkPortRandom": true,
+  "networkPortRange": "string",
+  "piecesHashOnCompletion": true,
+  "piecesMemoryMax": 0,
+  "protocolPex": true,
+  "throttleGlobalDownSpeed": 0,
+  "throttleGlobalUpSpeed": 0,
+  "throttleMaxPeersNormal": 0,
+  "throttleMaxPeersSeed": 0,
+  "throttleMaxDownloads": 0,
+  "throttleMaxDownloadsGlobal": 0,
+  "throttleMaxUploads": 0,
+  "throttleMaxUploadsGlobal": 0,
+  "throttleMinPeersNormal": 0,
+  "throttleMinPeersSeed": 0,
+  "trackersNumWant": 0
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/client/settings',
+{
+  method: 'PATCH',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -287,6 +688,81 @@ headers = {
 r = requests.patch('http://localhost:3000/client/settings', headers = headers)
 
 print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('PATCH','http://localhost:3000/client/settings', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/client/settings");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("PATCH");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("PATCH", "http://localhost:3000/client/settings", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -351,11 +827,45 @@ print(r.json())
 This operation does not require authentication
 </aside>
 
-## Gets subscribed feeds and their automation rules
+## feeMonitor.get
 
 <a id="opIdfeeMonitor.get"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/feed-monitor \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET http://localhost:3000/feed-monitor HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/feed-monitor',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -385,7 +895,82 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','http://localhost:3000/feed-monitor', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/feed-monitor");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/feed-monitor", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /feed-monitor`
+
+*Gets subscribed feeds and their automation rules*
 
 > Example responses
 
@@ -426,14 +1011,14 @@ print(r.json())
 }
 ```
 
-<h3 id="gets-subscribed-feeds-and-their-automation-rules-responses">Responses</h3>
+<h3 id="feemonitor.get-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|Inline|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|[Error](#schemaerror)|
 
-<h3 id="gets-subscribed-feeds-and-their-automation-rules-responseschema">Response Schema</h3>
+<h3 id="feemonitor.get-responseschema">Response Schema</h3>
 
 Status Code **200**
 
@@ -473,11 +1058,45 @@ Status Code **200**
 This operation does not require authentication
 </aside>
 
-## Deletes feed subscription or automation rule
+## feedMonitor.delete
 
 <a id="opIdfeedMonitor.delete"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X DELETE http://localhost:3000/feed-monitor/{id} \
+  -H 'Accept: application/json'
+
+```
+
+```http
+DELETE http://localhost:3000/feed-monitor/{id} HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/feed-monitor/{id}',
+{
+  method: 'DELETE',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -507,9 +1126,84 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('DELETE','http://localhost:3000/feed-monitor/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/feed-monitor/{id}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("DELETE");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("DELETE", "http://localhost:3000/feed-monitor/{id}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `DELETE /feed-monitor/{id}`
 
-<h3 id="deletes-feed-subscription-or-automation-rule-parameters">Parameters</h3>
+*Deletes feed subscription or automation rule*
+
+<h3 id="feedmonitor.delete-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -523,24 +1217,58 @@ print(r.json())
 {}
 ```
 
-<h3 id="deletes-feed-subscription-or-automation-rule-responses">Responses</h3>
+<h3 id="feedmonitor.delete-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|Inline|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|[Error](#schemaerror)|
 
-<h3 id="deletes-feed-subscription-or-automation-rule-responseschema">Response Schema</h3>
+<h3 id="feedmonitor.delete-responseschema">Response Schema</h3>
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## Gets subscribed feeds
+## feedMonitor.getFeed
 
 <a id="opIdfeedMonitor.getFeed"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/feed-monitor/feeds/{id} \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET http://localhost:3000/feed-monitor/feeds/{id} HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/feed-monitor/feeds/{id}',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -570,9 +1298,84 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','http://localhost:3000/feed-monitor/feeds/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/feed-monitor/feeds/{id}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/feed-monitor/feeds/{id}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /feed-monitor/feeds/{id}`
 
-<h3 id="gets-subscribed-feeds-parameters">Parameters</h3>
+*Gets subscribed feeds*
+
+<h3 id="feedmonitor.getfeed-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -595,14 +1398,14 @@ print(r.json())
 ]
 ```
 
-<h3 id="gets-subscribed-feeds-responses">Responses</h3>
+<h3 id="feedmonitor.getfeed-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|Inline|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|[Error](#schemaerror)|
 
-<h3 id="gets-subscribed-feeds-responseschema">Response Schema</h3>
+<h3 id="feedmonitor.getfeed-responseschema">Response Schema</h3>
 
 Status Code **200**
 
@@ -627,11 +1430,55 @@ Status Code **200**
 This operation does not require authentication
 </aside>
 
-## Modifies the options of a feed subscription
+## feedMonitor.updateFeedd
 
 <a id="opIdfeedMonitor.updateFeedd"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X PATCH http://localhost:3000/feed-monitor/feeds/{id} \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json'
+
+```
+
+```http
+PATCH http://localhost:3000/feed-monitor/feeds/{id} HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+Accept: application/json
+
+```
+
+```javascript
+const inputBody = '{
+  "type": "feed",
+  "_id": "string",
+  "label": "string",
+  "url": "string",
+  "interval": 0,
+  "count": 0
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/feed-monitor/feeds/{id}',
+{
+  method: 'PATCH',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -663,7 +1510,84 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('PATCH','http://localhost:3000/feed-monitor/feeds/{id}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/feed-monitor/feeds/{id}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("PATCH");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("PATCH", "http://localhost:3000/feed-monitor/feeds/{id}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `PATCH /feed-monitor/feeds/{id}`
+
+*Modifies the options of a feed subscription*
 
 > Body parameter
 
@@ -678,7 +1602,7 @@ print(r.json())
 }
 ```
 
-<h3 id="modifies-the-options-of-a-feed-subscription-parameters">Parameters</h3>
+<h3 id="feedmonitor.updatefeedd-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -693,23 +1617,67 @@ print(r.json())
 {}
 ```
 
-<h3 id="modifies-the-options-of-a-feed-subscription-responses">Responses</h3>
+<h3 id="feedmonitor.updatefeedd-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|Inline|
 
-<h3 id="modifies-the-options-of-a-feed-subscription-responseschema">Response Schema</h3>
+<h3 id="feedmonitor.updatefeedd-responseschema">Response Schema</h3>
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## Subscribes to a feed
+## feedMonitor.addFeed
 
 <a id="opIdfeedMonitor.addFeed"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X PUT http://localhost:3000/feed-monitor/feeds \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json'
+
+```
+
+```http
+PUT http://localhost:3000/feed-monitor/feeds HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+Accept: application/json
+
+```
+
+```javascript
+const inputBody = '{
+  "type": "feed",
+  "_id": "string",
+  "label": "string",
+  "url": "string",
+  "interval": 0,
+  "count": 0
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/feed-monitor/feeds',
+{
+  method: 'PUT',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -741,7 +1709,84 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('PUT','http://localhost:3000/feed-monitor/feeds', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/feed-monitor/feeds");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("PUT");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("PUT", "http://localhost:3000/feed-monitor/feeds", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `PUT /feed-monitor/feeds`
+
+*Subscribes to a feed*
 
 > Body parameter
 
@@ -768,7 +1813,7 @@ print(r.json())
 </Feed>
 ```
 
-<h3 id="subscribes-to-a-feed-parameters">Parameters</h3>
+<h3 id="feedmonitor.addfeed-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -789,7 +1834,7 @@ print(r.json())
 }
 ```
 
-<h3 id="subscribes-to-a-feed-responses">Responses</h3>
+<h3 id="feedmonitor.addfeed-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -800,11 +1845,45 @@ print(r.json())
 This operation does not require authentication
 </aside>
 
-## Gets items in a feed
+## feedMonitor.getFeedItems
 
 <a id="opIdfeedMonitor.getFeedItems"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/feed-monitor/feeds/{id}/items \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET http://localhost:3000/feed-monitor/feeds/{id}/items HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/feed-monitor/feeds/{id}/items',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -834,9 +1913,84 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','http://localhost:3000/feed-monitor/feeds/{id}/items', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/feed-monitor/feeds/{id}/items");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/feed-monitor/feeds/{id}/items", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /feed-monitor/feeds/{id}/items`
 
-<h3 id="gets-items-in-a-feed-parameters">Parameters</h3>
+*Gets items in a feed*
+
+<h3 id="feedmonitor.getfeeditems-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -858,14 +2012,14 @@ print(r.json())
 ]
 ```
 
-<h3 id="gets-items-in-a-feed-responses">Responses</h3>
+<h3 id="feedmonitor.getfeeditems-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|Inline|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|[Error](#schemaerror)|
 
-<h3 id="gets-items-in-a-feed-responseschema">Response Schema</h3>
+<h3 id="feedmonitor.getfeeditems-responseschema">Response Schema</h3>
 
 Status Code **200**
 
@@ -880,11 +2034,45 @@ Status Code **200**
 This operation does not require authentication
 </aside>
 
-## Gets automation rules
+## feedMonitor.getRules
 
 <a id="opIdfeedMonitor.getRules"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/feed-monitor/rules \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET http://localhost:3000/feed-monitor/rules HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/feed-monitor/rules',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -914,7 +2102,82 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','http://localhost:3000/feed-monitor/rules', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/feed-monitor/rules");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/feed-monitor/rules", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /feed-monitor/rules`
+
+*Gets automation rules*
 
 > Example responses
 
@@ -943,14 +2206,14 @@ print(r.json())
 ]
 ```
 
-<h3 id="gets-automation-rules-responses">Responses</h3>
+<h3 id="feedmonitor.getrules-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|Inline|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|[Error](#schemaerror)|
 
-<h3 id="gets-automation-rules-responseschema">Response Schema</h3>
+<h3 id="feedmonitor.getrules-responseschema">Response Schema</h3>
 
 Status Code **200**
 
@@ -981,11 +2244,65 @@ Status Code **200**
 This operation does not require authentication
 </aside>
 
-## Adds an automation rule to a feed subscription
+## feedMonitor.addRule
 
 <a id="opIdfeedMonitor.addRule"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X PUT http://localhost:3000/feed-monitor/rules \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json'
+
+```
+
+```http
+PUT http://localhost:3000/feed-monitor/rules HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+Accept: application/json
+
+```
+
+```javascript
+const inputBody = '{
+  "type": "rule",
+  "_id": "string",
+  "label": "string",
+  "feedIDs": [
+    "string"
+  ],
+  "field": "string",
+  "match": "string",
+  "exclude": "string",
+  "destination": "string",
+  "tags": [
+    "string"
+  ],
+  "startOnLoad": true,
+  "isBasePath": true,
+  "count": 0
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/feed-monitor/rules',
+{
+  method: 'PUT',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -1017,7 +2334,84 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('PUT','http://localhost:3000/feed-monitor/rules', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/feed-monitor/rules");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("PUT");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("PUT", "http://localhost:3000/feed-monitor/rules", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `PUT /feed-monitor/rules`
+
+*Adds an automation rule to a feed subscription*
 
 > Body parameter
 
@@ -1042,7 +2436,7 @@ print(r.json())
 }
 ```
 
-<h3 id="adds-an-automation-rule-to-a-feed-subscription-parameters">Parameters</h3>
+<h3 id="feedmonitor.addrule-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -1073,7 +2467,7 @@ print(r.json())
 }
 ```
 
-<h3 id="adds-an-automation-rule-to-a-feed-subscription-responses">Responses</h3>
+<h3 id="feedmonitor.addrule-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1084,11 +2478,38 @@ print(r.json())
 This operation does not require authentication
 </aside>
 
-## Gets downloaded data of contents of a torrent.
+## get-torrents-hash-contents-indices-data
 
 <a id="opIdget-torrents-hash-contents-indices-data"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/torrents/{hash}/contents/{indices}/data
+
+```
+
+```http
+GET http://localhost:3000/torrents/{hash}/contents/{indices}/data HTTP/1.1
+Host: localhost:3000
+
+```
+
+```javascript
+
+fetch('http://localhost:3000/torrents/{hash}/contents/{indices}/data',
+{
+  method: 'GET'
+
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -1111,16 +2532,83 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','http://localhost:3000/torrents/{hash}/contents/{indices}/data', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/torrents/{hash}/contents/{indices}/data");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/torrents/{hash}/contents/{indices}/data", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /torrents/{hash}/contents/{indices}/data`
 
-<h3 id="gets-downloaded-data-of-contents-of-a-torrent.-parameters">Parameters</h3>
+*Gets downloaded data of contents of a torrent.*
+
+<h3 id="get-torrents-hash-contents-indices-data-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |hash|path|string|true|none|
 |indices|path|string|true|none|
 
-<h3 id="gets-downloaded-data-of-contents-of-a-torrent.-responses">Responses</h3>
+<h3 id="get-torrents-hash-contents-indices-data-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1130,11 +2618,45 @@ print(r.json())
 This operation does not require authentication
 </aside>
 
-## Lists a directory
+## directoryList
 
 <a id="opIddirectoryList"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/directory-list \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET http://localhost:3000/directory-list HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/directory-list',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -1164,7 +2686,82 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','http://localhost:3000/directory-list', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/directory-list");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/directory-list", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /directory-list`
+
+*Lists a directory*
 
 > Example responses
 
@@ -1174,7 +2771,7 @@ print(r.json())
 {}
 ```
 
-<h3 id="lists-a-directory-responses">Responses</h3>
+<h3 id="directorylist-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1184,17 +2781,51 @@ print(r.json())
 |422|[Unprocessable Entity](https://tools.ietf.org/html/rfc2518#section-10.3)|Unprocessable Entity (WebDAV)|[Error](#schemaerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|[Error](#schemaerror)|
 
-<h3 id="lists-a-directory-responseschema">Response Schema</h3>
+<h3 id="directorylist-responseschema">Response Schema</h3>
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## Gets transfer history in the given interval
+## getHistory
 
 <a id="opIdgetHistory"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/history \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET http://localhost:3000/history HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/history',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -1224,9 +2855,84 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','http://localhost:3000/history', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/history");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/history", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /history`
 
-<h3 id="gets-transfer-history-in-the-given-interval-parameters">Parameters</h3>
+*Gets transfer history in the given interval*
+
+<h3 id="gethistory-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -1252,24 +2958,58 @@ print(r.json())
 {}
 ```
 
-<h3 id="gets-transfer-history-in-the-given-interval-responses">Responses</h3>
+<h3 id="gethistory-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|Inline|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal Server Error|[Error](#schemaerror)|
 
-<h3 id="gets-transfer-history-in-the-given-interval-responseschema">Response Schema</h3>
+<h3 id="gethistory-responseschema">Response Schema</h3>
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## Gets notifications
+## getNotifications
 
 <a id="opIdgetNotifications"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/notifications?limit=0&start=0 \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET http://localhost:3000/notifications?limit=0&start=0 HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/notifications?limit=0&start=0',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -1303,9 +3043,84 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','http://localhost:3000/notifications', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/notifications?limit=0&start=0");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/notifications", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /notifications`
 
-<h3 id="gets-notifications-parameters">Parameters</h3>
+*Gets notifications*
+
+<h3 id="getnotifications-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -1325,13 +3140,13 @@ print(r.json())
 }
 ```
 
-<h3 id="gets-notifications-responses">Responses</h3>
+<h3 id="getnotifications-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|Inline|
 
-<h3 id="gets-notifications-responseschema">Response Schema</h3>
+<h3 id="getnotifications-responseschema">Response Schema</h3>
 
 Status Code **200**
 
@@ -1344,11 +3159,45 @@ Status Code **200**
 This operation does not require authentication
 </aside>
 
-## Clears notifications
+## deleteNotifications
 
 <a id="opIddeleteNotifications"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X DELETE http://localhost:3000/notifications \
+  -H 'Accept: application/json'
+
+```
+
+```http
+DELETE http://localhost:3000/notifications HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/notifications',
+{
+  method: 'DELETE',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -1378,7 +3227,82 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('DELETE','http://localhost:3000/notifications', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/notifications");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("DELETE");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("DELETE", "http://localhost:3000/notifications", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `DELETE /notifications`
+
+*Clears notifications*
 
 > Example responses
 
@@ -1391,7 +3315,7 @@ print(r.json())
 }
 ```
 
-<h3 id="clears-notifications-responses">Responses</h3>
+<h3 id="deletenotifications-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1402,11 +3326,45 @@ print(r.json())
 This operation does not require authentication
 </aside>
 
-## Gets all Flood's settings
+## getSettings
 
 <a id="opIdgetSettings"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/settings \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET http://localhost:3000/settings HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/settings',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -1436,7 +3394,82 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','http://localhost:3000/settings', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/settings");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/settings", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /settings`
+
+*Gets all Flood's settings*
 
 > Example responses
 
@@ -1478,7 +3511,7 @@ print(r.json())
 }
 ```
 
-<h3 id="gets-all-flood's-settings-responses">Responses</h3>
+<h3 id="getsettings-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1494,6 +3527,75 @@ This operation does not require authentication
 <a id="opIdupdateSettings"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X PATCH http://localhost:3000/settings \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json'
+
+```
+
+```http
+PATCH http://localhost:3000/settings HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+Accept: application/json
+
+```
+
+```javascript
+const inputBody = '{
+  "language": "string",
+  "sortTorrents": {
+    "direction": "desc",
+    "property": {}
+  },
+  "torrentListColumns": [
+    {}
+  ],
+  "torrentListColumnWidths": {},
+  "torrentContextMenuActions": [
+    {}
+  ],
+  "torrentListViewSize": "condensed",
+  "speedLimits": {
+    "download": [
+      0
+    ],
+    "upload": [
+      0
+    ]
+  },
+  "mountPoints": [
+    "string"
+  ],
+  "deleteTorrentData": true,
+  "startTorrentsOnLoad": true,
+  "torrentDestinations": [
+    "string"
+  ],
+  "UITagSelectorMode": "single",
+  "UITorrentsAddTab": "by-url"
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/settings',
+{
+  method: 'PATCH',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -1522,6 +3624,81 @@ headers = {
 r = requests.patch('http://localhost:3000/settings', headers = headers)
 
 print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('PATCH','http://localhost:3000/settings', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/settings");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("PATCH");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("PATCH", "http://localhost:3000/settings", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -1622,11 +3799,45 @@ print(r.json())
 This operation does not require authentication
 </aside>
 
-## Gets Flood's settings
+## getSetting
 
 <a id="opIdgetSetting"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/settings/{property} \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET http://localhost:3000/settings/{property} HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/settings/{property}',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -1656,9 +3867,84 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','http://localhost:3000/settings/{property}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/settings/{property}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/settings/{property}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /settings/{property}`
 
-<h3 id="gets-flood's-settings-parameters">Parameters</h3>
+*Gets Flood's settings*
+
+<h3 id="getsetting-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -1704,7 +3990,7 @@ print(r.json())
 }
 ```
 
-<h3 id="gets-flood's-settings-responses">Responses</h3>
+<h3 id="getsetting-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1715,11 +4001,53 @@ print(r.json())
 This operation does not require authentication
 </aside>
 
-## Registers a user
+## auth.register
 
 <a id="opIdauth.register"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X POST http://localhost:3000/auth/register \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json'
+
+```
+
+```http
+POST http://localhost:3000/auth/register HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+Accept: application/json
+
+```
+
+```javascript
+const inputBody = '{
+  "username": "string",
+  "password": "string",
+  "client": {},
+  "level": 0
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/auth/register',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -1751,7 +4079,84 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','http://localhost:3000/auth/register', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/auth/register");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "http://localhost:3000/auth/register", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `POST /auth/register`
+
+*Registers a user*
 
 > Body parameter
 
@@ -1764,7 +4169,7 @@ print(r.json())
 }
 ```
 
-<h3 id="registers-a-user-parameters">Parameters</h3>
+<h3 id="auth.register-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -1781,7 +4186,7 @@ print(r.json())
 }
 ```
 
-<h3 id="registers-a-user-responses">Responses</h3>
+<h3 id="auth.register-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1790,7 +4195,7 @@ print(r.json())
 |404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|registration is disabled|string|
 |422|[Unprocessable Entity](https://tools.ietf.org/html/rfc2518#section-10.3)|request validation error|Inline|
 
-<h3 id="registers-a-user-responseschema">Response Schema</h3>
+<h3 id="auth.register-responseschema">Response Schema</h3>
 
 #### Enumerated Values
 
@@ -1803,11 +4208,45 @@ print(r.json())
 This operation does not require authentication
 </aside>
 
-## Verifies the connectivity and validity of session
+## auth.verify
 
 <a id="opIdauth.verify"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/auth/verify \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET http://localhost:3000/auth/verify HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/auth/verify',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -1837,7 +4276,82 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','http://localhost:3000/auth/verify', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/auth/verify");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/auth/verify", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /auth/verify`
+
+*Verifies the connectivity and validity of session*
 
 > Example responses
 
@@ -1851,7 +4365,7 @@ print(r.json())
 }
 ```
 
-<h3 id="verifies-the-connectivity-and-validity-of-session-responses">Responses</h3>
+<h3 id="auth.verify-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1863,11 +4377,38 @@ print(r.json())
 This operation does not require authentication
 </aside>
 
-## Clears the session cookie
+## auth.logout
 
 <a id="opIdauth.logout"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/auth/logout
+
+```
+
+```http
+GET http://localhost:3000/auth/logout HTTP/1.1
+Host: localhost:3000
+
+```
+
+```javascript
+
+fetch('http://localhost:3000/auth/logout',
+{
+  method: 'GET'
+
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -1890,9 +4431,76 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','http://localhost:3000/auth/logout', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/auth/logout");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/auth/logout", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /auth/logout`
 
-<h3 id="clears-the-session-cookie-responses">Responses</h3>
+*Clears the session cookie*
+
+<h3 id="auth.logout-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1902,11 +4510,45 @@ print(r.json())
 This operation does not require authentication
 </aside>
 
-## Lists all users
+## auth.getUsers
 
 <a id="opIdauth.getUsers"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/auth/users \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET http://localhost:3000/auth/users HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/auth/users',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -1936,7 +4578,82 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','http://localhost:3000/auth/users', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/auth/users");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/auth/users", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /auth/users`
+
+*Lists all users*
 
 > Example responses
 
@@ -1951,7 +4668,7 @@ print(r.json())
 ]
 ```
 
-<h3 id="lists-all-users-responses">Responses</h3>
+<h3 id="auth.getusers-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -1959,7 +4676,7 @@ print(r.json())
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|not authenticated or token expired|string|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|user is not authorized to list users|string|
 
-<h3 id="lists-all-users-responseschema">Response Schema</h3>
+<h3 id="auth.getusers-responseschema">Response Schema</h3>
 
 Status Code **200**
 
@@ -1972,11 +4689,45 @@ Status Code **200**
 This operation does not require authentication
 </aside>
 
-## Deletes a user
+## auth.deleteUser
 
 <a id="opIdauth.deleteUser"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X DELETE http://localhost:3000/auth/users/{username} \
+  -H 'Accept: application/json'
+
+```
+
+```http
+DELETE http://localhost:3000/auth/users/{username} HTTP/1.1
+Host: localhost:3000
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/auth/users/{username}',
+{
+  method: 'DELETE',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -2006,9 +4757,84 @@ print(r.json())
 
 ```
 
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('DELETE','http://localhost:3000/auth/users/{username}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/auth/users/{username}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("DELETE");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("DELETE", "http://localhost:3000/auth/users/{username}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `DELETE /auth/users/{username}`
 
-<h3 id="deletes-a-user-parameters">Parameters</h3>
+*Deletes a user*
+
+<h3 id="auth.deleteuser-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
@@ -2024,7 +4850,7 @@ print(r.json())
 }
 ```
 
-<h3 id="deletes-a-user-responses">Responses</h3>
+<h3 id="auth.deleteuser-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -2032,7 +4858,7 @@ print(r.json())
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|not authenticated or token expired|string|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|user is not authorized to delete user|string|
 
-<h3 id="deletes-a-user-responseschema">Response Schema</h3>
+<h3 id="auth.deleteuser-responseschema">Response Schema</h3>
 
 Status Code **200**
 
@@ -2049,6 +4875,48 @@ This operation does not require authentication
 <a id="opIdauth.updateUser"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X PATCH http://localhost:3000/auth/users/{username} \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json'
+
+```
+
+```http
+PATCH http://localhost:3000/auth/users/{username} HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+Accept: application/json
+
+```
+
+```javascript
+const inputBody = '{
+  "username": "string",
+  "password": "string",
+  "client": {},
+  "level": 0
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+};
+
+fetch('http://localhost:3000/auth/users/{username}',
+{
+  method: 'PATCH',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
 
 ```ruby
 require 'rest-client'
@@ -2077,6 +4945,81 @@ headers = {
 r = requests.patch('http://localhost:3000/auth/users/{username}', headers = headers)
 
 print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('PATCH','http://localhost:3000/auth/users/{username}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/auth/users/{username}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("PATCH");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("PATCH", "http://localhost:3000/auth/users/{username}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
